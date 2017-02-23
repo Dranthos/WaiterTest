@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity  implements AdapterView.OnItemLongClickListener{
 
     private ListView mListView;
-    Button button;
+    Button button_Añadir;
 
 
 
@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         final ArrayList<Waiter> Waiters = new ArrayList<Waiter>();
         mListView = (ListView) findViewById(R.id.ListView);
         mListView.setLongClickable(true);
-        button = (Button) findViewById(R.id.button);
+        button_Añadir = (Button) findViewById(R.id.Añadir);
 
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
             Waiter Waiter = new Waiter();
             Waiter.name = "Camarera " + i;
             Waiter.hours = "50";
@@ -58,6 +58,18 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
                 startActivity(intent);
             }
         });*/
+
+        button_Añadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Waiter Waiter = new Waiter();
+                Waiter.name = "Camarera";
+                Waiter.hours = "0";
+                Waiter.substract = "0";
+                Waiters.add(Waiter);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

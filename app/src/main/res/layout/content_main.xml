@@ -20,14 +20,28 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/ListView"
-        android:layout_height="270dp" />
+        android:layout_height="270dp"
+        android:background="@drawable/listviewshape" />
+
+    <Button
+        android:text="Añadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Añadir"
+        android:layout_below="@+id/ListView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp" />
 
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_below="@+id/ListView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_alignBottom="@+id/Añadir"
+        android:layout_toRightOf="@+id/Añadir"
+        android:layout_toEndOf="@+id/Añadir"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp"
+        android:id="@+id/Calcular" />
 </RelativeLayout>
