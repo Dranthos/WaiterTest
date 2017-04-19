@@ -1,6 +1,7 @@
 package com.example.migue.waitertest;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements AdapterView.OnItemLongClickListener{
 
     private ListView mListView;
     final ArrayList<Waiter> Waiters = new ArrayList<Waiter>();
+    List<String> resultados = new ArrayList<>();
 
     Button button_Añadir,  button_Calcular;
     TextView text_Dinero;
@@ -46,8 +49,8 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         for(int i = 0; i < 5; i++){
             Waiter Waiter = new Waiter();
             Waiter.name = "Camarera " + i;
-            Waiter.hours = "50";
-            Waiter.substract = "0";
+            Waiter.hours = 50;
+            Waiter.substract = 0;
 
             Waiters.add(Waiter);
         }
@@ -60,8 +63,8 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
             public void onClick(View view) {
                 Waiter Waiter = new Waiter();
                 Waiter.name = "Camarera";
-                Waiter.hours = "0";
-                Waiter.substract = "0";
+                Waiter.hours = 0;
+                Waiter.substract = 0;
                 Waiters.add(Waiter);
                 adapter.notifyDataSetChanged();
                 mListView.setSelection(mListView.getCount() - 1);
@@ -110,8 +113,8 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Waiter waiter = Waiters.get((int) id);
-                        waiter.hours = edHoras.getText().toString();
-                        waiter.substract = edResta.getText().toString();
+                        waiter.hours = Integer.parseInt(edHoras.getText().toString());
+                        waiter.substract = Integer.parseInt(edResta.getText().toString());
 
                         Waiters.set((int) id, waiter);
                         adapter.notifyDataSetChanged();
@@ -141,9 +144,20 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         for(int i=0; i < Waiters.size(); i++){
             Waiter waiter;
             waiter = Waiters.get(i);
-            if (waiter.hours != null) maxHours += Integer.parseInt(waiter.hours);
+            if (waiter.hours >= 0) maxHours += waiter.hours;
             else Toast.makeText(this, "Hay un problema en " + waiter.name, Toast.LENGTH_LONG).show();
         }
+
+        for(int i=0; i<Waiters.size(); i++){
+            Waiter waiter;
+            waiter = Waiters.get(i);
+            result = ((waiter.hours * money) / maxHours) - waiter.substract;
+            resultados.add(waiter.name + " se lleva " + result + "€");
+        }
+
+        Intent intent = new Intent(MainActivity.this, Tabla.class);
+        intent.putExtra("lista", (ArrayList<String>) resultados);
+        startActivity(intent);
 
     }
 
