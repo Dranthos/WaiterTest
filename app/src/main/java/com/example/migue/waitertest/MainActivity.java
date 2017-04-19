@@ -1,7 +1,9 @@
 package com.example.migue.waitertest;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,7 +23,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity  implements AdapterView.OnItemLongClickListener{
 
     private ListView mListView;
-    Button button_Añadir;
+    final ArrayList<Waiter> Waiters = new ArrayList<Waiter>();
+
+    Button button_Añadir,  button_Calcular;
+    TextView text_Dinero;
 
 
 
@@ -31,10 +37,11 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final ArrayList<Waiter> Waiters = new ArrayList<Waiter>();
         mListView = (ListView) findViewById(R.id.ListView);
         mListView.setLongClickable(true);
         button_Añadir = (Button) findViewById(R.id.Añadir);
+        button_Calcular = (Button) findViewById(R.id.Calcular);
+        text_Dinero = (TextView) findViewById(R.id.Dinero);
 
         for(int i = 0; i < 5; i++){
             Waiter Waiter = new Waiter();
@@ -48,17 +55,6 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         final WaiterAdapter adapter = new WaiterAdapter(this, Waiters);
         mListView.setAdapter(adapter);
 
-        /*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?>adapter,View v, int position){
-                ItemClicked item = adapter.getItemAtPosition(position);
-
-                Intent intent = new Intent(Activity.this,destinationActivity.class);
-                //based on item add info to intent
-                startActivity(intent);
-            }
-        });*/
-
         button_Añadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +64,14 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
                 Waiter.substract = "0";
                 Waiters.add(Waiter);
                 adapter.notifyDataSetChanged();
+                mListView.setSelection(mListView.getCount() - 1);
+            }
+        });
+
+        button_Calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calculate();
             }
         });
 
@@ -122,16 +126,24 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         });
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> l, View v,
-                                   final int position, long id) {
+    void Calculate(){
 
-        Toast.makeText(this, "long clicked pos: " + position, Toast.LENGTH_LONG).show();
+        int result;
+        int maxHours = 0;
+        int money;
 
-        return true;
-    }
+        if(text_Dinero.getText().toString().trim().equals("null") || text_Dinero.getText().toString().trim().length() <= 0){
+            Toast.makeText(getApplicationContext(), "Introduce una cantidad de dinero válida", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else money = Integer.parseInt(text_Dinero.getText().toString());
 
-    public void buttonClicked(View view) {
+        for(int i=0; i < Waiters.size(); i++){
+            Waiter waiter;
+            waiter = Waiters.get(i);
+            if (waiter.hours != null) maxHours += Integer.parseInt(waiter.hours);
+            else Toast.makeText(this, "Hay un problema en " + waiter.name, Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -155,5 +167,10 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        return false;
     }
 }
