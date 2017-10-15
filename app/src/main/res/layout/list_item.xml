@@ -16,6 +16,7 @@
             android:layout_weight="0.07"
             app:srcCompat="@drawable/ic_action_name" />
 
+
         <TextView
             android:id="@+id/Nombre"
             android:layout_width="100dp"
