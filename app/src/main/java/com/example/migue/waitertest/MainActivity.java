@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity  implements AdapterView.OnItemLongClickListener{
 
     private ListView mListView;
-    Button button;
+    Button add, erase, calculate;
 
 
 
@@ -34,7 +34,9 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         final ArrayList<Waiter> Waiters = new ArrayList<Waiter>();
         mListView = (ListView) findViewById(R.id.ListView);
         mListView.setLongClickable(true);
-        button = (Button) findViewById(R.id.button);
+        add = (Button) findViewById(R.id.add);
+        erase = (Button) findViewById(R.id.erase);
+        calculate = (Button) findViewById(R.id.calculate);
 
         for(int i = 0; i < 10; i++){
             Waiter Waiter = new Waiter();

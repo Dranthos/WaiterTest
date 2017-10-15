@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.migue.waitertest.MainActivity"
@@ -15,19 +15,41 @@
 
 
     <ListView
+        android:id="@+id/ListView"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_height="350dp"
+        android:layout_above="@+id/calculate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/ListView"
-        android:layout_height="270dp" />
+        android:layout_marginBottom="44dp" />
 
     <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
+        android:id="@+id/add"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_below="@+id/ListView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/buttonshape"
+        android:text="añadir" />
+
+    <Button
+        android:id="@+id/erase"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/calculate"
+        android:background="@drawable/buttonshape"
+        android:text="Borrar" />
+
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:text="Calcular"
+        android:layout_above="@+id/add"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
